@@ -1,0 +1,107 @@
+<div class="container">
+    <h1>Employee Form</h1>
+    <form  #employeeForm="ngForm">
+      <div class="form-group">
+        <label for="firstname">First Name</label>
+        <input type="text" class="form-control" id="firstname"
+               required minlength="4"
+               [(ngModel)]="employee.firstname" name="firstname"  #myFirstName="ngModel"> 
+               <div *ngIf="myFirstName.invalid && (myFirstName.dirty || myFirstName.touched)"
+               class="alert alert-danger">
+           
+             <div *ngIf="myFirstName.errors.required">
+               First Name is required.
+             </div>
+             <div *ngIf="myFirstName.errors.minlength">
+              First Name must be at least {{myFirstName.errors.minlength.requiredLength}} characters long.
+             </div>
+           </div>
+      </div>
+      <div class="form-group">
+          <label for="lastname">Last Name</label>
+          <input type="text" class="form-control" id="lastname"
+                 required minlength="4"
+                 [(ngModel)]="employee.lastname" name="lastname"  #myLastName="ngModel"> 
+                 <div *ngIf="myLastName.invalid && (myLastName.dirty || myLastName.touched)"
+                 class="alert alert-danger">
+             
+               <div *ngIf="myLastName.errors.required">
+                 Last Name is required.
+               </div>
+               <div *ngIf="myLastName.errors.minlength">
+                Last Name must be at least {{myLastName.errors.minlength.requiredLength}} characters long.
+               </div>
+             </div>
+        </div>
+
+        <div class="form-group">
+            <label for="phonenumber">Phone Number</label>
+            <input type="text" class="form-control" id="phonenumber"
+                   required minlength="4"
+                   [(ngModel)]="employee.phonenumber" name="phonenumber"  #myPhoneNumber="ngModel"> 
+                   <div *ngIf="myPhoneNumber.invalid && (myPhoneNumber.dirty || myPhoneNumber.touched)"
+                   class="alert alert-danger">
+               
+                 <div *ngIf="myPhoneNumber.errors.required">
+                   Last Name is required.
+                 </div>
+                 <div *ngIf="myPhoneNumber.errors.minlength">
+                  Last Name must be at least {{myPhoneNumber.errors.minlength.requiredLength}} characters long.
+                 </div>
+               </div>
+          </div>
+  
+
+      <button type="button" class="btn btn-success"  [disabled]="!employeeForm.form.valid" (click)="submitClicked(employeeForm)">Submit</button>
+    </form>
+      <hr>
+      <br>
+      <table mat-table [dataSource]="data" class="mat-elevation-z8">
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+      
+        <!-- Position Column -->
+        <ng-container matColumnDef="ID">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+      
+        <!-- Name Column -->
+        <ng-container matColumnDef="firstname">
+          <th mat-header-cell *matHeaderCellDef> First Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.firstname}} </td>
+        </ng-container>
+      
+        <!-- Weight Column -->
+        <ng-container matColumnDef="lastname">
+          <th mat-header-cell *matHeaderCellDef> Last Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.lastname}} </td>
+        </ng-container>
+      
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="phonenumber">
+          <th mat-header-cell *matHeaderCellDef> Phone Number </th>
+          <td mat-cell *matCellDef="let element"> {{element.phonenumber}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Action </th>   
+          <td mat-cell *matCellDef="let element"> 
+              <button mat-raised-button  class="btn btn-primary" (click)="editItem(element)">
+                  <i class="glyphicon glyphicon-pencil"></i>  Edit
+              </button> 
+              &nbsp;&nbsp;
+            <button mat-raised-button  class="btn btn-danger" (click)="deleteClicked(element.id)">
+                <i class="glyphicon glyphicon-remove"></i> delete
+            </button> 
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <hr>
+      <br>
+  </div>
+  
+  
